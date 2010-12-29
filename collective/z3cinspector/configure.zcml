@@ -10,6 +10,14 @@
           permission="zope2.ViewManagementScreens"
           />
 
+    <browser:page
+          name="inspector-search-utility"
+          for="OFS.interfaces.IApplication"
+          class=".views.SearchUtility"
+          permission="zope2.ViewManagementScreens"
+          allowed_attributes="search_interface search_name search_results"
+          />
+
     <browser:resource
           file="resources/jquery.min.js"
           name="collective.z3cinspector-jquery.min.js" />
@@ -21,5 +29,9 @@
     <browser:resource
           file="resources/inspector.css"
           name="collective.z3cinspector-inspector.css" />
+
+    <browser:resourceDirectory
+          directory="resources/jquery-autocomplete"
+          name="collective.z3cinspector-autocomplete" />
 
 </configure>

@@ -1,0 +1,12 @@
+<table class="results">
+  <thead>
+    <th tal:repeat="title options/headings"
+        tal:content="title" />
+  </thead>
+  <tbody>
+    <tr tal:repeat="row options/rows">
+      <td tal:repeat="cell row"
+          tal:content="cell" />
+    </tr>
+  </tbody>
+</table>

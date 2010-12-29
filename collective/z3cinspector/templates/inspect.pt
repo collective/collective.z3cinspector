@@ -21,16 +21,61 @@
             tal:attributes="src view/get_js_url">
     </script>
 
+    <tal:auto-complete
+       tal:define="ac string:/++resource++collective.z3cinspector-autocomplete;
+                   lib string:${ac}/lib">
+
+      <!-- <script type="text/javascript" language="javascript" -->
+      <!--         tal:attributes="src string:${lib}/jquery.bgiframe.min.js"></script> -->
+
+      <!-- <script type="text/javascript" language="javascript" -->
+      <!--         tal:attributes="src string:${lib}/jquery.ajaxQueue.js"></script> -->
+
+      <!-- <script type="text/javascript" language="javascript" -->
+      <!--         tal:attributes="src string:${lib}/thickbox-compressed.js"></script> -->
+
+      <script type="text/javascript" language="javascript"
+              tal:attributes="src string:${ac}/jquery.autocomplete.js"></script>
+
+      <link rel="stylesheet" type="text/css"
+            tal:attributes="href string:${ac}/jquery.autocomplete.css" />
+
+      <!-- <link rel="stylesheet" type="text/css" -->
+      <!--       tal:attributes="href string:${lib}/thickbox.css" /> -->
+
+    </tal:auto-complete>
   </head>
 
 
   <body>
     <h1 i18n:translate="">Component registry inspector</h1>
 
-    <a href="/manage_main">Manage</a>
+    <fieldset>
+      <legend>Utilities</legend>
 
-    <tal tal:define="a view/pdb"
-         tal:replace="nothing"/>
+      <div class="field">
+        <label for="utilityInterface">
+          Utility interface
+        </label>
+        <input type="text" id="utilityInterface" name="interface"
+               class="utility-field" />
+      </div>
+
+      <div class="field">
+        <label for="utilityName">
+          Utility name
+        </label>
+        <input type="text" id="utilityName" name="name" class="utility-field" />
+      </div>
+
+      <div class="buttons">
+        <input type="button" id="utilitySearch" value="Search" />
+      </div>
+
+      <div id="utilityResults">
+      </div>
+
+    </fieldset>
 
   </body>
 </html>
