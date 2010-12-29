@@ -1,0 +1,25 @@
+<configure
+      xmlns="http://namespaces.zope.org/zope"
+      xmlns:browser="http://namespaces.zope.org/browser">
+
+    <browser:page
+          name="inspect"
+          for="OFS.interfaces.IApplication"
+          class=".views.InspectView"
+          template="templates/inspect.pt"
+          permission="zope2.ViewManagementScreens"
+          />
+
+    <browser:resource
+          file="resources/jquery.min.js"
+          name="collective.z3cinspector-jquery.min.js" />
+
+    <browser:resource
+          file="resources/inspector.js"
+          name="collective.z3cinspector-inspector.js" />
+
+    <browser:resource
+          file="resources/inspector.css"
+          name="collective.z3cinspector-inspector.css" />
+
+</configure>
