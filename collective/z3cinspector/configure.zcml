@@ -18,6 +18,13 @@
           allowed_attributes="search_interface search_name search_results"
           />
 
+    <browser:page
+          name="inspector-open"
+          for="OFS.interfaces.IApplication"
+          class=".views.OpenView"
+          permission="zope2.ViewManagementScreens"
+          />
+
     <browser:resource
           file="resources/jquery.min.js"
           name="collective.z3cinspector-jquery.min.js" />

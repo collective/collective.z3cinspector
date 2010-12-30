@@ -2,11 +2,13 @@
   <thead>
     <th tal:repeat="title options/headings"
         tal:content="title" />
+    <th></th>
   </thead>
   <tbody>
     <tr tal:repeat="row options/rows">
-      <td tal:repeat="cell row"
+      <td tal:repeat="cell row/data"
           tal:content="cell" />
+      <td tal:content="structure row/actions" />
     </tr>
   </tbody>
 </table>

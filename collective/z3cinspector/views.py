@@ -1,11 +1,12 @@
 from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.z3cinspector.config import Config
+from collective.z3cinspector.table import TableRenderer
 from collective.z3cinspector.registry import RegistryInspector
-from collective.z3cinspector.utils import get_dotted_name
+from collective.z3cinspector import utils
 from datetime import datetime
 from zope.component import getSiteManager
 from zope.dottedname.resolve import resolve
-import re
+import os
 
 
 class InspectView(BrowserView):
@@ -21,30 +22,25 @@ class InspectView(BrowserView):
         return base_url + '?x=' + str(datetime.now())
 
 
-class SearchBase(BrowserView):
-    """Base search class.
+class OpenView(BrowserView):
+    """View for opening a source file in the editor. Only use this when
+    running zope on your local machine.
     """
 
-    results = ViewPageTemplateFile('templates/results.pt')
+    def __call__(self):
+        path = self.request.get('path')
+        line = self.request.get('line')
+        params = {'path': path,
+                  'line': line}
 
-    def _compare(self, query, value):
-        """ Compares each word in the query string seperate.
-        """
-
-        if not value:
-            return False
-
-        xpr = re.compile('[\s\.]')
-        query = xpr.split(query.lower())
-        value = value.lower()
-
-        for word in query:
-            if len(word)>0 and word not in value:
-                return False
-        return True
+        # read the config file, if existing
+        config = Config()
+        command = config.get('open_command') % params
+        print command
+        os.system(command)
 
 
-class SearchUtility(SearchBase):
+class SearchUtility(BrowserView):
     """Utility searching ajax stuff.
     """
 
@@ -54,7 +50,7 @@ class SearchUtility(SearchBase):
         inspector = RegistryInspector(getSiteManager().utilities)
         query = self.request.get('q')
         names = inspector.get_provided_names(0)
-        results = filter(lambda value: self._compare(query, value),
+        results = filter(lambda value: utils.compare(query, value),
                          names)
         return '\n'.join(results)
 
@@ -71,7 +67,7 @@ class SearchUtility(SearchBase):
             provided = None
 
         names = inspector.get_names(provided, 0)
-        results = filter(lambda value: self._compare(query, value),
+        results = filter(lambda value: utils.compare(query, value),
                          names)
         return '\n'.join(results)
 
@@ -89,19 +85,5 @@ class SearchUtility(SearchBase):
 
         adapters = inspector.get_adapters(provided, (), name)
 
-        options = {
-            'headings': ['Provided', 'Name', 'Factory', 'File', 'Line'],
-            'rows': [],
-            }
-
-        for adapter in adapters:
-            path, line = adapter.get_file_and_line()
-            options['rows'].append([
-                    get_dotted_name(adapter.provided),
-                    adapter.name,
-                    str(adapter.factory),
-                    path,
-                    line,
-                    ])
-
-        return self.results(**options)
+        renderer = TableRenderer(self.context, self.request)
+        return renderer(adapters, show_descriminators=False)

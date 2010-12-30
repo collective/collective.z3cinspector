@@ -26,7 +26,6 @@ $(function() {
     $('.utility-field').each(function() {
       data[$(this).attr('name')] = $(this).val();
     });
-    console.info(data);
     $.ajax({
       url: '/@@inspector-search-utility/search_results',
       data: data,
@@ -34,6 +33,16 @@ $(function() {
       cache: false,
       success: function(data, textStatus, XMLHttpRequest) {
         $('#utilityResults').html(data);
+      }
+    });
+  });
+
+  $('.open').live('click', function() {
+    $.ajax({
+      url: '/@@inspector-open',
+      data: {
+        path: $(this).parents('td:first').find('input[name=path]').val(),
+        line: $(this).parents('td:first').find('input[name=line]').val()
       }
     });
   });
