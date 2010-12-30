@@ -1,3 +1,107 @@
+
+/* AUTO COMPLETE */
 .ac_loading {
   background: white url('/++resource++collective.z3cinspector-autocomplete/indicator.gif') right center no-repeat;
+}
+
+
+/* TABS */
+
+ul.tabs {
+  margin:0;
+  padding:0;
+  height:30px;
+  border-bottom:1px solid #666;
+}
+
+ul.tabs li {
+  float:left;
+  padding:0;
+  margin:0;
+  list-style-type:none;
+}
+
+ul.tabs a {
+  float:left;
+  font-size:13px;
+  display:block;
+  padding:5px 30px;
+  text-decoration:none;
+  border:1px solid #666;
+  border-bottom:0px;
+  height:18px;
+  background-color:#efefef;
+  color:#777;
+  margin-right:2px;
+  position:relative;
+  top:1px;
+  outline:0;
+  -moz-border-radius:4px 4px 0 0;
+}
+
+ul.tabs a:hover {
+  background-color:#F7F7F7;
+  color:#333;
+}
+
+ul.tabs a.current {
+  background-color:#ddd;
+  border-bottom:1px solid #ddd;
+  color:#000;
+  cursor:default;
+}
+
+ul.panes {
+  margin:0;
+  padding:0;
+}
+
+ul.panes li {
+  display:none;
+  border:1px solid #666;
+  border-width:0 1px 1px 1px;
+  min-height:150px;
+  padding:15px 20px;
+  background-color:#ddd;
+  list-style-type:none;
+}
+
+
+/* TABLE */
+
+div#utilityResults {
+  overflow-x: scroll;
+}
+
+table.results {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+  border-collapse: collapse;
+}
+
+table.results th {
+  text-align: left;
+}
+
+table.results th, table.results td {
+  border-bottom: 1px solid black;
+  border-right: 1px solid black;
+}
+
+
+/* FORMS */
+
+div.field label {
+  float: left;
+  display: block;
+  width: 200px;
+}
+
+div.textarea-field textarea {
+  width: 700px;
+  height: 50px;
+}
+
+div.field.text-field input {
+  width: 500px;
 }

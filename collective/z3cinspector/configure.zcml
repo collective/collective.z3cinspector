@@ -37,6 +37,10 @@
           name="collective.z3cinspector-jquery.min.js" />
 
     <browser:resource
+          file="resources/jquery.tools.min.js"
+          name="collective.z3cinspector-jquery.tools.min.js" />
+
+    <browser:resource
           file="resources/inspector.js"
           name="collective.z3cinspector-inspector.js" />
 

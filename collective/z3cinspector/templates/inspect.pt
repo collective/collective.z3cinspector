@@ -14,6 +14,10 @@
                 src="/++resource++collective.z3cinspector-jquery.min.js">
         </script>
 
+        <script type="text/javascript" language="javascript"
+                src="/++resource++collective.z3cinspector-jquery.tools.min.js">
+        </script>
+
         <tal:auto-complete
               tal:define="ac string:/++resource++collective.z3cinspector-autocomplete">
 
@@ -38,75 +42,80 @@
     <body>
         <h1 i18n:translate="">Component registry inspector</h1>
 
-        <fieldset>
-            <legend>Utilities</legend>
+        <ul class="tabs">
+            <li><a href="#">Utilities</a></li>
+            <li><a href="#">Configuration</a></li>
+        </ul>
 
-            <div class="field">
-                <label for="utilityInterface">
-                    Utility interface
-                </label>
-                <input type="text" id="utilityInterface" name="interface"
-                       class="utility-field" />
-            </div>
+        <ul class="panes">
+            <li>
+                <div class="field text-field">
+                    <label for="utilityInterface">
+                        Utility interface
+                    </label>
+                    <input type="text" id="utilityInterface" name="interface"
+                           class="utility-field" />
+                </div>
 
-            <div class="field">
-                <label for="utilityName">
-                    Utility name
-                </label>
-                <input type="text" id="utilityName" name="name" class="utility-field" />
-            </div>
+                <div class="field text-field">
+                    <label for="utilityName">
+                        Utility name
+                    </label>
+                    <input type="text" id="utilityName" name="name" class="utility-field" />
+                </div>
 
-            <div class="buttons">
-                <input type="button" id="utilitySearch" value="Search" />
-            </div>
+                <div class="buttons">
+                    <input type="button" id="utilitySearch" value="Search" />
+                </div>
 
-            <div id="utilityResults">
-            </div>
-
-        </fieldset>
-
+                <div id="utilityResults">
+                </div>
+            </li>
 
 
-        <fieldset tal:define="config view/get_config"
-                  id="configuration-form">
-            <legend>Configuration</legend>
+            <li tal:define="config view/get_config"
+                 id="configuration-form">
 
-            <div class="field checkbox-field">
-                <input type="checkbox" id="configColumnFactory" name="column_factory"
-                       tal:attributes="checked config/column_factory|nothing"
-                       class="config-field" />
-                <label for="configColumnFactory">Show factory column</label>
-            </div>
+                <div class="field checkbox-field">
+                    <input type="checkbox" id="configColumnFactory" name="column_factory"
+                           tal:attributes="checked config/column_factory|nothing"
+                           class="config-field" />
+                    <label for="configColumnFactory">Show factory column</label>
+                </div>
 
-            <div class="field checkbox-field">
-                <input type="checkbox" id="configColumnFile" name="column_file"
-                       tal:attributes="checked config/column_file|string:checked"
-                       class="config-field" />
-                <label for="configColumnFile">Show file column</label>
-            </div>
+                <div class="field checkbox-field">
+                    <input type="checkbox" id="configColumnFile" name="column_file"
+                           tal:attributes="checked config/column_file|string:checked"
+                           class="config-field" />
+                    <label for="configColumnFile">Show file column</label>
+                </div>
 
-            <div class="field checkbox-field">
-                <input type="checkbox" id="configColumnLine" name="column_line"
-                       tal:attributes="checked config/column_line|string:checked"
-                       class="config-field" />
-                <label for="configColumnLine">Show line column</label>
-            </div>
+                <div class="field checkbox-field">
+                    <input type="checkbox" id="configColumnLine" name="column_line"
+                           tal:attributes="checked config/column_line|string:checked"
+                           class="config-field" />
+                    <label for="configColumnLine">Show line column</label>
+                </div>
 
-            <div class="field textarea-field">
-                <label for="configOpenCommand">
-                    File opening command
-                </label>
-                <textarea name="open_command" id="configOpenCommand"
-                          tal:content="config/open_command"
-                          class="config-field">
-                </textarea>
-            </div>
+                <div class="field textarea-field">
+                    <label for="configOpenCommand">
+                        File opening command
+                    </label>
+                    <textarea name="open_command" id="configOpenCommand"
+                              tal:content="config/open_command"
+                              class="config-field">
+                    </textarea>
+                </div>
 
-            <div class="buttons">
-                <input type="button" id="configSave" value="Save" />
-            </div>
+                <div class="buttons">
+                    <input type="button" id="configSave" value="Save" />
+                </div>
 
-        </fieldset>
+            </li>
+
+        </ul>
+
+
 
     </body>
 </html>
