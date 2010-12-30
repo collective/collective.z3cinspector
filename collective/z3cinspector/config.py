@@ -23,7 +23,10 @@ class Config(object):
             self._config = self._defaults()
 
     def _defaults(self):
-        return {'open_command': 'open %(path)s'}
+        return {'open_command': 'open %(path)s',
+                'column_factory': False,
+                'column_file': True,
+                'column_line': True}
 
     def get(self, key, default=None):
         return self._config.get(key, default)

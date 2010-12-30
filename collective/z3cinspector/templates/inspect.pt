@@ -83,7 +83,28 @@
                   id="configuration-form">
             <legend>Configuration</legend>
 
-            <div class="field">
+            <div class="field checkbox-field">
+                <input type="checkbox" id="configColumnFactory" name="column_factory"
+                       tal:attributes="checked config/column_factory|nothing"
+                       class="config-field" />
+                <label for="configColumnFactory">Show factory column</label>
+            </div>
+
+            <div class="field checkbox-field">
+                <input type="checkbox" id="configColumnFile" name="column_file"
+                       tal:attributes="checked config/column_file|string:checked"
+                       class="config-field" />
+                <label for="configColumnFile">Show file column</label>
+            </div>
+
+            <div class="field checkbox-field">
+                <input type="checkbox" id="configColumnLine" name="column_line"
+                       tal:attributes="checked config/column_line|string:checked"
+                       class="config-field" />
+                <label for="configColumnLine">Show line column</label>
+            </div>
+
+            <div class="field textarea-field">
                 <label for="configOpenCommand">
                     File opening command
                 </label>

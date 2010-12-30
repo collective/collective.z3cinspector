@@ -50,7 +50,11 @@ $(function() {
   $('#configSave').click(function() {
     var data = {};
     $('#configuration-form .config-field').each(function() {
-      data[$(this).attr('name')] = $(this).val();
+      if($(this).attr('type') == 'checkbox') {
+        data[$(this).attr('name').concat(':boolean')] = $(this).attr('checked') ? '1' : '';
+      } else {
+        data[$(this).attr('name')] = $(this).val();
+      }
     });
     $.ajax({
       url: '/@@inspector-save-config',

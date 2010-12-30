@@ -51,7 +51,6 @@ class OpenView(BrowserView):
         # read the config file, if existing
         config = Config()
         command = config.get('open_command') % params
-        print command
         os.system(command)
 
 
