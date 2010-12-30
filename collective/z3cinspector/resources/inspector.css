@@ -1,2 +1,3 @@
-body {
+.ac_loading {
+  background: white url('/++resource++collective.z3cinspector-autocomplete/indicator.gif') right center no-repeat;
 }

@@ -26,6 +26,8 @@ $(function() {
     $('.utility-field').each(function() {
       data[$(this).attr('name')] = $(this).val();
     });
+    $('#utilityResults').html('');
+    showSpinner($(this).parents('fieldset:first'));
     $.ajax({
       url: '/@@inspector-search-utility/search_results',
       data: data,
@@ -33,9 +35,16 @@ $(function() {
       cache: false,
       success: function(data, textStatus, XMLHttpRequest) {
         $('#utilityResults').html(data);
+        hideSpinner();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert('Failed: '.concat(textStatus));
+        hideSpinner();
       }
     });
   });
+
+  /* general */
 
   $('.open').live('click', function() {
     $.ajax({
@@ -62,5 +71,13 @@ $(function() {
       data: data
     });
   });
+
+  var showSpinner = function(fieldset) {
+    $('<img src="/++resource++collective.z3cinspector-spinner.gif" class="spinner" />').appendTo(fieldset);
+  };
+
+  var hideSpinner = function() {
+    $('.spinner').remove();
+  };
 
 });

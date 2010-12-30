@@ -44,6 +44,10 @@
           file="resources/inspector.css"
           name="collective.z3cinspector-inspector.css" />
 
+    <browser:resource
+          file="resources/spinner.gif"
+          name="collective.z3cinspector-spinner.gif" />
+
     <browser:resourceDirectory
           directory="resources/jquery-autocomplete"
           name="collective.z3cinspector-autocomplete" />

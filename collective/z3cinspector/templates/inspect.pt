@@ -10,15 +10,8 @@
 
         <title i18n:translate="">Component registry inspector</title>
 
-        <link rel="stylesheet" type="text/css"
-              tal:attributes="href view/get_css_url" />
-
         <script type="text/javascript" language="javascript"
                 src="/++resource++collective.z3cinspector-jquery.min.js">
-        </script>
-
-        <script type="text/javascript" language="javascript"
-                tal:attributes="src view/get_js_url">
         </script>
 
         <tal:auto-complete
@@ -31,6 +24,14 @@
                   tal:attributes="href string:${ac}/jquery.autocomplete.css" />
 
         </tal:auto-complete>
+
+        <script type="text/javascript" language="javascript"
+                tal:attributes="src view/get_js_url">
+        </script>
+
+        <link rel="stylesheet" type="text/css"
+              tal:attributes="href view/get_css_url" />
+
     </head>
 
 
