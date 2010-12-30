@@ -1,11 +1,11 @@
 from Products.Five import BrowserView
-from collective.z3cinspector.config import Config
-from collective.z3cinspector.table import TableRenderer
-from collective.z3cinspector.registry import RegistryInspector
 from collective.z3cinspector import utils
+from collective.z3cinspector.config import Config
+from collective.z3cinspector.registry import RegistryInspector
+from collective.z3cinspector.table import TableRenderer
+from collective.z3cinspector.utils import resolve
 from datetime import datetime
 from zope.component import getSiteManager
-from zope.dottedname.resolve import resolve
 import os
 
 
@@ -75,10 +75,7 @@ class SearchUtility(BrowserView):
 
         iface_name = self.request.get('iface', None)
         query = self.request.get('q')
-        if iface_name:
-            provided = resolve(iface_name)
-        else:
-            provided = None
+        provided = resolve(iface_name)
 
         names = inspector.get_names(provided, 0)
         results = filter(lambda value: utils.compare(query, value),
@@ -91,10 +88,50 @@ class SearchUtility(BrowserView):
         inspector = RegistryInspector(getSiteManager().utilities)
 
         iface_name = self.request.get('interface')
-        if iface_name:
-            provided = resolve(iface_name)
-        else:
-            provided = None
+        provided = resolve(iface_name)
+        name = self.request.get('name')
+
+        adapters = inspector.get_adapters(provided, (), name)
+
+        renderer = TableRenderer(self.context, self.request)
+        return renderer(adapters, show_descriminators=False)
+
+
+class SearchAdapter(BrowserView):
+    """Adapter searching ajax stuff.
+    """
+
+    def search_interface(self):
+        """Search an interface dotted name with autocomplete.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+        query = self.request.get('q')
+        names = inspector.get_provided_names(-1)
+        results = filter(lambda value: utils.compare(query, value),
+                         names)
+        return '\n'.join(results)
+
+    def search_name(self):
+        """Search the name of a adapter.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+
+        iface_name = self.request.get('iface', None)
+        query = self.request.get('q')
+        provided = resolve(iface_name)
+
+        names = inspector.get_names(provided, -1)
+        results = filter(lambda value: utils.compare(query, value),
+                         names)
+        return '\n'.join(results)
+
+    def search_results(self):
+        """Search the registry.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+
+        iface_name = self.request.get('interface')
+        provided = resolve(iface_name)
         name = self.request.get('name')
 
         adapters = inspector.get_adapters(provided, (), name)

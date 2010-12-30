@@ -19,6 +19,14 @@
           />
 
     <browser:page
+          name="inspector-search-adapter"
+          for="OFS.interfaces.IApplication"
+          class=".views.SearchAdapter"
+          permission="zope2.ViewManagementScreens"
+          allowed_attributes="search_interface search_name search_results"
+          />
+
+    <browser:page
           name="inspector-save-config"
           for="OFS.interfaces.IApplication"
           class=".views.SaveConfigView"

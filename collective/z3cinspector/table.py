@@ -45,9 +45,11 @@ class TableRenderer(object):
             if config.get('column_line'):
                 row['data'].append(line)
 
-            row['actions'] = '<input type="button" class="open" value="open" />' + \
-                '<input type="hidden" name="path" value="%s" />' % path + \
-                '<input type="hidden" name="line" value="%s" />' % line
+            if line != '-':
+                row['actions'] = '<input type="button" class="open" ' + \
+                    'value="open" />' + \
+                    '<input type="hidden" name="path" value="%s" />' % path + \
+                    '<input type="hidden" name="line" value="%s" />' % line
 
             options['rows'].append(row)
 

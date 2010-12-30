@@ -48,6 +48,52 @@ $(function() {
     });
   });
 
+
+  /* ADAPTERS */
+
+  $("#adapterInterface").autocomplete(
+    '/@@inspector-search-adapter/search_interface', {
+      width: 500
+    });
+
+  var ac_adapter_name = $('#adapterName').autocomplete(
+    '/@@inspector-search-adapter/search_name', {
+      width: 500,
+      extraParams: {
+        iface: function() {
+          return $("#adapterInterface").val();
+        }
+      }
+    });
+
+  $("#adapterInterface").change(function() {
+    ac_adapter_name.flushCache();
+  });
+
+  $('#adapterSearch').click(function() {
+    var data = {};
+    $('.adapter-field').each(function() {
+      data[$(this).attr('name')] = $(this).val();
+    });
+    $('#adapterResults').html('');
+    showSpinner($(this).parents('fieldset:first'));
+    $.ajax({
+      url: '/@@inspector-search-adapter/search_results',
+      data: data,
+      dataType: 'html',
+      cache: false,
+      success: function(data, textStatus, XMLHttpRequest) {
+        $('#adapterResults').html(data);
+        hideSpinner();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        alert('Failed: '.concat(textStatus));
+        hideSpinner();
+      }
+    });
+  });
+
+
   /* general */
 
   $('.open').live('click', function() {

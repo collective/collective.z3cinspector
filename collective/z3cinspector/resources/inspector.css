@@ -73,6 +73,10 @@ div#utilityResults {
   overflow-x: scroll;
 }
 
+div#adapterResults {
+  overflow-x: scroll;
+}
+
 table.results {
   border-top: 1px solid black;
   border-left: 1px solid black;

@@ -44,6 +44,7 @@
 
         <ul class="tabs">
             <li><a href="#">Utilities</a></li>
+            <li><a href="#">Adapters</a></li>
             <li><a href="#">Configuration</a></li>
         </ul>
 
@@ -69,6 +70,31 @@
                 </div>
 
                 <div id="utilityResults">
+                </div>
+            </li>
+
+
+            <li>
+                <div class="field text-field">
+                    <label for="adapterInterface">
+                        Adapter interface
+                    </label>
+                    <input type="text" id="adapterInterface" name="interface"
+                           class="adapter-field" />
+                </div>
+
+                <div class="field text-field">
+                    <label for="adapterName">
+                        Adapter name
+                    </label>
+                    <input type="text" id="adapterName" name="name" class="adapter-field" />
+                </div>
+
+                <div class="buttons">
+                    <input type="button" id="adapterSearch" value="Search" />
+                </div>
+
+                <div id="adapterResults">
                 </div>
             </li>
 

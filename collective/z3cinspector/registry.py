@@ -1,5 +1,6 @@
 from collective.z3cinspector.utils import get_dotted_name
 import inspect
+import sys
 
 
 class Adapter(object):
@@ -32,12 +33,14 @@ class Adapter(object):
             pass
         except TypeError:
             klass = self.factory.__class__
+        except:
+            return str(sys.exc_info()[0]) + ':' + str(self.factory), '-'
 
         try:
             return inspect.getsourcefile(klass), \
                 inspect.getsourcelines(klass)[1]
-        except (IOError, TypeError), e:
-            return str(e) + ':' + str(self.factory), ''
+        except:
+            return str(sys.exc_info()[0]) + ':' + str(self.factory), '-'
 
     @classmethod
     def from_registry(cls, dict_, path=[]):
@@ -96,24 +99,6 @@ class RegistryInspector(object):
         # convert to dotted names
         for iface in provided:
             yield get_dotted_name(iface)
-
-    def get_adapters_by_provided_interface(self, provided, scope=-1):
-        """All adapters which provide a specific interface.
-        """
-
-        if scope > -1:
-            all = self.registry._adapters[scope]
-            if provided in all:
-                return Adapter.from_registry(all[provided], [provided])
-
-        else:
-            adapters = []
-            for all in self.registry._adapter:
-                if provided in all:
-                    adapters.extend(list(Adapter.from_registry(
-                                all[provided], [provided])))
-
-            return adapters
 
     def get_names(self, provided=None, scope=-1):
         """Return all known names. The `provided` interface is optional.
