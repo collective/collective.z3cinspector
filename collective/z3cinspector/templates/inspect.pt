@@ -1,82 +1,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal">
 
-  <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 
-    <title i18n:translate="">Component registry inspector</title>
+        <title i18n:translate="">Component registry inspector</title>
 
-    <link rel="stylesheet" type="text/css"
-          tal:attributes="href view/get_css_url" />
+        <link rel="stylesheet" type="text/css"
+              tal:attributes="href view/get_css_url" />
 
-    <script type="text/javascript" language="javascript"
-            src="/++resource++collective.z3cinspector-jquery.min.js">
-    </script>
+        <script type="text/javascript" language="javascript"
+                src="/++resource++collective.z3cinspector-jquery.min.js">
+        </script>
 
-    <script type="text/javascript" language="javascript"
-            tal:attributes="src view/get_js_url">
-    </script>
+        <script type="text/javascript" language="javascript"
+                tal:attributes="src view/get_js_url">
+        </script>
 
-    <tal:auto-complete
-       tal:define="ac string:/++resource++collective.z3cinspector-autocomplete;
-                   lib string:${ac}/lib">
+        <tal:auto-complete
+              tal:define="ac string:/++resource++collective.z3cinspector-autocomplete;
+                          lib string:${ac}/lib">
 
-      <!-- <script type="text/javascript" language="javascript" -->
-      <!--         tal:attributes="src string:${lib}/jquery.bgiframe.min.js"></script> -->
+            <!-- <script type="text/javascript" language="javascript" -->
+            <!--         tal:attributes="src string:${lib}/jquery.bgiframe.min.js"></script> -->
 
-      <!-- <script type="text/javascript" language="javascript" -->
-      <!--         tal:attributes="src string:${lib}/jquery.ajaxQueue.js"></script> -->
+            <!-- <script type="text/javascript" language="javascript" -->
+            <!--         tal:attributes="src string:${lib}/jquery.ajaxQueue.js"></script> -->
 
-      <!-- <script type="text/javascript" language="javascript" -->
-      <!--         tal:attributes="src string:${lib}/thickbox-compressed.js"></script> -->
+            <!-- <script type="text/javascript" language="javascript" -->
+            <!--         tal:attributes="src string:${lib}/thickbox-compressed.js"></script> -->
 
-      <script type="text/javascript" language="javascript"
-              tal:attributes="src string:${ac}/jquery.autocomplete.js"></script>
+            <script type="text/javascript" language="javascript"
+                    tal:attributes="src string:${ac}/jquery.autocomplete.js"></script>
 
-      <link rel="stylesheet" type="text/css"
-            tal:attributes="href string:${ac}/jquery.autocomplete.css" />
+            <link rel="stylesheet" type="text/css"
+                  tal:attributes="href string:${ac}/jquery.autocomplete.css" />
 
-      <!-- <link rel="stylesheet" type="text/css" -->
-      <!--       tal:attributes="href string:${lib}/thickbox.css" /> -->
+            <!-- <link rel="stylesheet" type="text/css" -->
+            <!--       tal:attributes="href string:${lib}/thickbox.css" /> -->
 
-    </tal:auto-complete>
-  </head>
+        </tal:auto-complete>
+    </head>
 
 
-  <body>
-    <h1 i18n:translate="">Component registry inspector</h1>
+    <body>
+        <h1 i18n:translate="">Component registry inspector</h1>
 
-    <fieldset>
-      <legend>Utilities</legend>
+        <fieldset>
+            <legend>Utilities</legend>
 
-      <div class="field">
-        <label for="utilityInterface">
-          Utility interface
-        </label>
-        <input type="text" id="utilityInterface" name="interface"
-               class="utility-field" />
-      </div>
+            <div class="field">
+                <label for="utilityInterface">
+                    Utility interface
+                </label>
+                <input type="text" id="utilityInterface" name="interface"
+                       class="utility-field" />
+            </div>
 
-      <div class="field">
-        <label for="utilityName">
-          Utility name
-        </label>
-        <input type="text" id="utilityName" name="name" class="utility-field" />
-      </div>
+            <div class="field">
+                <label for="utilityName">
+                    Utility name
+                </label>
+                <input type="text" id="utilityName" name="name" class="utility-field" />
+            </div>
 
-      <div class="buttons">
-        <input type="button" id="utilitySearch" value="Search" />
-      </div>
+            <div class="buttons">
+                <input type="button" id="utilitySearch" value="Search" />
+            </div>
 
-      <div id="utilityResults">
-      </div>
+            <div id="utilityResults">
+            </div>
 
-    </fieldset>
+        </fieldset>
 
-  </body>
+    </body>
 </html>
 
