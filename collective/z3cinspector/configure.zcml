@@ -19,6 +19,13 @@
           />
 
     <browser:page
+          name="inspector-save-config"
+          for="OFS.interfaces.IApplication"
+          class=".views.SaveConfigView"
+          permission="zope2.ViewManagementScreens"
+          />
+
+    <browser:page
           name="inspector-open"
           for="OFS.interfaces.IApplication"
           class=".views.OpenView"

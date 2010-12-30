@@ -21,6 +21,21 @@ class InspectView(BrowserView):
         base_url = '/++resource++collective.z3cinspector-inspector.css'
         return base_url + '?x=' + str(datetime.now())
 
+    def get_config(self):
+        return Config()._config
+
+
+class SaveConfigView(BrowserView):
+    """Save the configuration.
+    """
+
+    def __call__(self):
+        """Save the configuration with ajax.
+        """
+        config = Config()
+        for key, value in self.request.form.items():
+            config.set(key, value)
+
 
 class OpenView(BrowserView):
     """View for opening a source file in the editor. Only use this when

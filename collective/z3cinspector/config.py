@@ -29,7 +29,7 @@ class Config(object):
         return self._config.get(key, default)
 
     def set(self, key, value):
-        self._config.set(key, value)
+        self._config[key] = value
         self.save()
 
     def save(self):

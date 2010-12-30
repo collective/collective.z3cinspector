@@ -77,6 +77,28 @@
 
         </fieldset>
 
+
+
+        <fieldset tal:define="config view/get_config"
+                  id="configuration-form">
+            <legend>Configuration</legend>
+
+            <div class="field">
+                <label for="configOpenCommand">
+                    File opening command
+                </label>
+                <textarea name="open_command" id="configOpenCommand"
+                          tal:content="config/open_command"
+                          class="config-field">
+                </textarea>
+            </div>
+
+            <div class="buttons">
+                <input type="button" id="configSave" value="Save" />
+            </div>
+
+        </fieldset>
+
     </body>
 </html>
 

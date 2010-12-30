@@ -47,4 +47,16 @@ $(function() {
     });
   });
 
+  $('#configSave').click(function() {
+    var data = {};
+    $('#configuration-form .config-field').each(function() {
+      data[$(this).attr('name')] = $(this).val();
+    });
+    $.ajax({
+      url: '/@@inspector-save-config',
+      type: 'POST',
+      data: data
+    });
+  });
+
 });
