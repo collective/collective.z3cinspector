@@ -22,26 +22,13 @@
         </script>
 
         <tal:auto-complete
-              tal:define="ac string:/++resource++collective.z3cinspector-autocomplete;
-                          lib string:${ac}/lib">
-
-            <!-- <script type="text/javascript" language="javascript" -->
-            <!--         tal:attributes="src string:${lib}/jquery.bgiframe.min.js"></script> -->
-
-            <!-- <script type="text/javascript" language="javascript" -->
-            <!--         tal:attributes="src string:${lib}/jquery.ajaxQueue.js"></script> -->
-
-            <!-- <script type="text/javascript" language="javascript" -->
-            <!--         tal:attributes="src string:${lib}/thickbox-compressed.js"></script> -->
+              tal:define="ac string:/++resource++collective.z3cinspector-autocomplete">
 
             <script type="text/javascript" language="javascript"
                     tal:attributes="src string:${ac}/jquery.autocomplete.js"></script>
 
             <link rel="stylesheet" type="text/css"
                   tal:attributes="href string:${ac}/jquery.autocomplete.css" />
-
-            <!-- <link rel="stylesheet" type="text/css" -->
-            <!--       tal:attributes="href string:${lib}/thickbox.css" /> -->
 
         </tal:auto-complete>
     </head>
