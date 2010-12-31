@@ -18,7 +18,27 @@ class Adapter(object):
         is defined.
         """
 
-        if inspect.isclass(self.factory):
+        try:
+            module = self.factory.__module__
+        except AttributeError:
+            module = ''
+
+        meta_modules = (
+            'Products.Five.metaclass',
+            'Products.Five.viewlet.metaconfigure',
+            'Products.Five.viewlet.viewlet')
+
+        if module in meta_modules:
+            # We have a metaclass, e.g. a BrowserView with registered
+            # template. We need to have the actual view-class which is
+            # the first superclass.
+            try:
+                klass = inspect.getmro(self.factory)[1]
+            except (AttributeError, IndexError):
+                # no superclasses
+                klass = self.factory.__class__
+
+        elif inspect.isclass(self.factory):
             klass = self.factory
         elif inspect.isfunction(self.factory):
             klass = self.factory
@@ -34,13 +54,13 @@ class Adapter(object):
         except TypeError:
             klass = self.factory.__class__
         except:
-            return str(sys.exc_info()[0]) + ':' + str(self.factory), '-'
+            return str(sys.exc_info()[1]) + ': ' + str(self.factory), '-'
 
         try:
             return inspect.getsourcefile(klass), \
                 inspect.getsourcelines(klass)[1]
         except:
-            return str(sys.exc_info()[0]) + ':' + str(self.factory), '-'
+            return str(sys.exc_info()[1]) + ': ' + str(self.factory), '-'
 
     @classmethod
     def from_registry(cls, dict_, path=[]):
