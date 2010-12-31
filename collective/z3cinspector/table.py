@@ -55,6 +55,8 @@ class TableRenderer(object):
                     if len(adapter.descriminators) > i:
                         row['data'].append(utils.get_dotted_name(
                                 adapter.descriminators[i]))
+                    else:
+                        row['data'].append('-')
 
             if config.get('column_factory'):
                 row['data'].append(str(adapter.factory))
