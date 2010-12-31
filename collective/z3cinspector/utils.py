@@ -14,6 +14,20 @@ def get_dotted_name(iface):
         return '.'.join((iface.__module__, iface.__name__))
 
 
+def ac_search(query, results):
+    """Autocomplete search function.
+    """
+    results = filter(lambda value: compare(query, value),
+                     results)
+
+    if query in results:
+        # we have a direct match - move it to the top
+        results.remove(query)
+        results.insert(0, query)
+
+    return results
+
+
 def compare(query, value):
     """ Compares each word in the query string seperate.
     """

@@ -70,8 +70,7 @@ class SearchUtility(BrowserView):
         inspector = RegistryInspector(getSiteManager().utilities)
         query = self.request.get('q')
         names = inspector.get_provided_names(0)
-        results = filter(lambda value: utils.compare(query, value),
-                         names)
+        results = utils.ac_search(query, names)
         return '\n'.join(results)
 
     def search_name(self):
@@ -84,8 +83,7 @@ class SearchUtility(BrowserView):
         provided = resolve(iface_name)
 
         names = inspector.get_names(provided, 0)
-        results = filter(lambda value: utils.compare(query, value),
-                         names)
+        results = utils.ac_search(query, names)
         return '\n'.join(results)
 
     def search_results(self):
@@ -113,8 +111,7 @@ class SearchAdapter(BrowserView):
         inspector = RegistryInspector(getSiteManager().adapters)
         query = self.request.get('q')
         names = inspector.get_provided_names(-1)
-        results = filter(lambda value: utils.compare(query, value),
-                         names)
+        results = utils.ac_search(query, names)
         return '\n'.join(results)
 
     def search_name(self):
@@ -127,8 +124,7 @@ class SearchAdapter(BrowserView):
         provided = resolve(iface_name)
 
         names = inspector.get_names(provided, -1)
-        results = filter(lambda value: utils.compare(query, value),
-                         names)
+        results = utils.ac_search(query, names)
         return '\n'.join(results)
 
     def search_for(self):
@@ -143,8 +139,7 @@ class SearchAdapter(BrowserView):
         query = self.request.get('q')
 
         names = inspector.get_keys_at_level(level, provided, name)
-        results = filter(lambda value: utils.compare(query, value),
-                         names)
+        results = utils.ac_search(query, names)
         return '\n'.join(results)
 
     def search_results(self):
