@@ -24,6 +24,12 @@ class InspectView(BrowserView):
     def get_config(self):
         return Config()._config
 
+    def get_adpater_depth_range(self):
+        """Maximum amount of adapter descriminators.
+        """
+        return range(1, len(getSiteManager().adapters._adapters) + 1)
+
+
 
 class SaveConfigView(BrowserView):
     """Save the configuration.
@@ -125,6 +131,22 @@ class SearchAdapter(BrowserView):
                          names)
         return '\n'.join(results)
 
+    def search_for(self):
+        """Search for interface name.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+
+        iface_name = self.request.get('iface', None)
+        provided = resolve(iface_name)
+        name = self.request.get('name')
+        level = int(self.request.get('level'))
+        query = self.request.get('q')
+
+        names = inspector.get_keys_at_level(level, provided, name)
+        results = filter(lambda value: utils.compare(query, value),
+                         names)
+        return '\n'.join(results)
+
     def search_results(self):
         """Search the registry.
         """
@@ -134,7 +156,23 @@ class SearchAdapter(BrowserView):
         provided = resolve(iface_name)
         name = self.request.get('name')
 
-        adapters = inspector.get_adapters(provided, (), name)
+        descriminators = []
+        desc_keys = filter(lambda x: x.startswith('descriminator:'),
+                           self.request.form.keys())
+        desc_keys.sort()
+        any_positive = False
+        for key in desc_keys:
+            value = self.request.form.get(key, None)
+            if value:
+                descriminators.append(resolve(value))
+                any_positive = True
+            else:
+                descriminators.append(None)
+
+        if not any_positive:
+            descriminators = ()
+
+        adapters = inspector.get_adapters(provided, descriminators, name)
 
         renderer = TableRenderer(self.context, self.request)
         return renderer(adapters, show_descriminators=True)

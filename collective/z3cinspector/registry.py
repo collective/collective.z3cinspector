@@ -165,6 +165,41 @@ class RegistryInspector(object):
 
             return names
 
+    def get_keys_at_level(self, level, provided=None, name=None):
+        """Returns all keys at a specific level
+        """
+
+        def _get_keys(dict_, path=[]):
+            # walk into the dicts till to the end. The last key
+            # in the path is the name, the second last is the
+            # provided interface.
+            keys = []
+            for key, value in dict_.items():
+                if isinstance(value, dict):
+                    # continue walking
+                    keys.extend(_get_keys(value, path + [key]))
+
+                else:
+                    if name and name != key:
+                        # name does not match
+                        continue
+                    if provided and provided != path[-1]:
+                        # provided does not match
+                        continue
+                    keys.append(path[level])
+
+            return keys
+
+        keys = []
+        for all in self.registry._adapters:
+            keys.extend(_get_keys(all))
+
+        keys = list(set(keys))
+        keys = [get_dotted_name(key) for key in keys]
+        keys.sort()
+
+        return keys
+
     def get_adapters(self, provided=None, descriminators=None, name=None):
         """All adapters which mach the given criterions.
         `scope` is the amount of descriminators.
@@ -194,9 +229,13 @@ class RegistryInspector(object):
             return results
 
         if descriminators:
-            path = descriminators + [provided, name]
-            results = _match_path(
-                path, self.registry._adapters[len(descriminators)])
+            results = {}
+            for scope, all in enumerate(self.registry._adapters):
+                path = descriminators[:scope] + [provided, name]
+                subdict = _match_path(path, all)
+                if subdict:
+                    results.update(subdict)
+
             return Adapter.from_registry(results)
 
         else:

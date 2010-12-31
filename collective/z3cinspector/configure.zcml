@@ -23,7 +23,7 @@
           for="OFS.interfaces.IApplication"
           class=".views.SearchAdapter"
           permission="zope2.ViewManagementScreens"
-          allowed_attributes="search_interface search_name search_results"
+          allowed_attributes="search_interface search_name search_results search_for"
           />
 
     <browser:page

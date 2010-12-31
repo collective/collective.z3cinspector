@@ -66,8 +66,30 @@ $(function() {
       }
     });
 
+  var ac_adapter_descs = new Array();
+  $('.adapter-desc-field').each(function(index, value) {
+    ac_adapter_descs.push($(this).autocomplete(
+      '/@@inspector-search-adapter/search_for', {
+        width: 500,
+        extraParams: {
+          iface: function() {
+            return $("#adapterInterface").val();
+          },
+          name: function() {
+            return $('#adapterName').val();
+          },
+          level: index
+        }
+      }));
+  });
+
   $("#adapterInterface").change(function() {
     ac_adapter_name.flushCache();
+    $(ac_adapter_descs).each(function(){this.flushCache();});
+  });
+
+  $('#adapterName').change(function() {
+    $(ac_adapter_descs).each(function(){this.flushCache();});
   });
 
   $('#adapterSearch').click(function() {

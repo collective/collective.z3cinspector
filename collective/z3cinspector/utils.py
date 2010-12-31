@@ -1,11 +1,14 @@
-import re
 from zope.dottedname.resolve import resolve as zope_resolve
 from zope.interface.declarations import Implements
 from zope.interface.declarations import implementedBy
+import re
+import types
 
 
 def get_dotted_name(iface):
-    if isinstance(iface, Implements):
+    if isinstance(iface, types.StringType):
+        return 'string: %s' % iface
+    elif isinstance(iface, Implements):
         return 'implementedBy: %s' % iface.__name__
     else:
         return '.'.join((iface.__module__, iface.__name__))

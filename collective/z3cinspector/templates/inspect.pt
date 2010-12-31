@@ -90,6 +90,22 @@
                     <input type="text" id="adapterName" name="name" class="adapter-field" />
                 </div>
 
+                <tal:descriminators
+                      tal:repeat="depth view/get_adpater_depth_range">
+
+                    <div class="field text-field">
+                        <label tal:attributes="for string:adapterDesc${depth}"
+                               tal:content="string:For ${depth}">
+                            For X
+                        </label>
+                        <input type="text" class="adapter-field adapter-desc-field"
+                               tal:attributes="id string:adapterDesc${depth};
+                                               name string:descriminator:${depth}"
+                               />
+                    </div>
+
+                </tal:descriminators>
+
                 <div class="buttons">
                     <input type="button" id="adapterSearch" value="Search" />
                 </div>
