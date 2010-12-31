@@ -15,7 +15,19 @@ class TableRenderer(object):
 
         config = Config()
 
+        max_scope = 0
+        if show_descriminators:
+            # count the descriminators
+            for adapter in adapters:
+                if adapter.descriminators:
+                    if len(adapter.descriminators) > max_scope:
+                        max_scope = len(adapter.descriminators)
+
         headings = ['Provided', 'Name']
+
+        if max_scope > 0:
+            headings.extend(['for %i' % (i+1) for i in range(max_scope)])
+
         if config.get('column_factory'):
             headings.append('Factory')
         if config.get('column_file'):
@@ -37,6 +49,12 @@ class TableRenderer(object):
                 utils.get_dotted_name(adapter.provided),
                 adapter.name,
                 ]
+
+            if show_descriminators and max_scope:
+                for i in range(max_scope):
+                    if len(adapter.descriminators) > i:
+                        row['data'].append(utils.get_dotted_name(
+                                adapter.descriminators[i]))
 
             if config.get('column_factory'):
                 row['data'].append(str(adapter.factory))
