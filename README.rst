@@ -71,7 +71,7 @@ and the line number (option) is substituted (python).
 
 Example command::
 
-    /path/to/your/editor %(path)s -l %(line)
+    /path/to/your/editor %(path)s -l %(line)s
 
 
 Credits
