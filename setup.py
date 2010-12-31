@@ -32,5 +32,7 @@ setup(name='collective.z3cinspector',
         ],
       entry_points="""
       # -*- Entry points: -*-
+      [z3c.autoinclude.plugin]
+      target = plone
       """,
       )
