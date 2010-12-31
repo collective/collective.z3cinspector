@@ -100,7 +100,7 @@
 
 
             <li tal:define="config view/get_config"
-                 id="configuration-form">
+                id="configuration-form">
 
                 <div class="field checkbox-field">
                     <input type="checkbox" id="configColumnFactory" name="column_factory"
@@ -127,6 +127,19 @@
                     <label for="configOpenCommand">
                         File opening command
                     </label>
+                    <select id="configOpenCommandTemplate">
+                        <option value="">-- Custom --</option>
+                        <option value="open %(path)s">Command: open</option>
+                        <option value="emacsclient -n +%(line)s %(path)s">
+                            Editor: emacs
+                        </option>
+                        <option value="mvim +%(line)s %(path)s">
+                            Editor: macvim
+                        </option>
+                        <option value="mate %(path)s -l %(line)s">
+                            Editor: textmate
+                        </option>
+                    </select>
                     <textarea name="open_command" id="configOpenCommand"
                               tal:content="config/open_command"
                               class="config-field">

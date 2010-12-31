@@ -94,16 +94,12 @@ $(function() {
   });
 
 
-  /* general */
+  /* config */
 
-  $('.open').live('click', function() {
-    $.ajax({
-      url: '/@@inspector-open',
-      data: {
-        path: $(this).parents('td:first').find('input[name=path]').val(),
-        line: $(this).parents('td:first').find('input[name=line]').val()
-      }
-    });
+  $('#configOpenCommandTemplate').change(function() {
+    if($(this).val()) {
+      $('#configOpenCommand').val($(this).val());
+    }
   });
 
   $('#configSave').click(function() {
@@ -119,6 +115,20 @@ $(function() {
       url: '/@@inspector-save-config',
       type: 'POST',
       data: data
+    });
+  });
+
+
+
+  /* general */
+
+  $('.open').live('click', function() {
+    $.ajax({
+      url: '/@@inspector-open',
+      data: {
+        path: $(this).parents('td:first').find('input[name=path]').val(),
+        line: $(this).parents('td:first').find('input[name=line]').val()
+      }
     });
   });
 

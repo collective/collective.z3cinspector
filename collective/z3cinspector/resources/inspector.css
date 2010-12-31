@@ -109,3 +109,10 @@ div.textarea-field textarea {
 div.field.text-field input {
   width: 500px;
 }
+
+#configOpenCommandTemplate {
+  display: block;
+}
+#configOpenCommand {
+  margin-left: 200px;
+}
