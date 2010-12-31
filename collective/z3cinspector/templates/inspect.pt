@@ -18,6 +18,10 @@
                 src="/++resource++collective.z3cinspector-jquery.tools.min.js">
         </script>
 
+        <script type="text/javascript" language="javascript"
+                src="/++resource++collective.z3cinspector-jquery.hotkeys.js">
+        </script>
+
         <tal:auto-complete
               tal:define="ac string:/++resource++collective.z3cinspector-autocomplete">
 
@@ -43,75 +47,82 @@
         <h1 i18n:translate="">Component registry inspector</h1>
 
         <ul class="tabs">
-            <li><a href="#">Utilities</a></li>
-            <li><a href="#">Adapters</a></li>
-            <li><a href="#">Configuration</a></li>
+            <li><a href="#" id="tabUtilities"
+                   title="Shortcut: CTRL+u"><u>U</u>tilities</a></li>
+            <li><a href="#" id="tabAdapters"
+                   title="Shortcut: CTRL+a"><u>A</u>dapters</a></li>
+            <li><a href="#" id="tabConfiguration"
+                   title="Shortcut: CTRL+c"><u>C</u>onfiguration</a></li>
         </ul>
 
         <ul class="panes">
             <li>
-                <div class="field text-field">
-                    <label for="utilityInterface">
-                        Utility interface
-                    </label>
-                    <input type="text" id="utilityInterface" name="interface"
-                           class="utility-field" />
-                </div>
+                <form action="" id="utilityForm">
+                    <div class="field text-field">
+                        <label for="utilityInterface">
+                            Utility interface
+                        </label>
+                        <input type="text" id="utilityInterface" name="interface"
+                               class="utility-field" />
+                    </div>
 
-                <div class="field text-field">
-                    <label for="utilityName">
-                        Utility name
-                    </label>
-                    <input type="text" id="utilityName" name="name" class="utility-field" />
-                </div>
+                    <div class="field text-field">
+                        <label for="utilityName">
+                            Utility name
+                        </label>
+                        <input type="text" id="utilityName" name="name" class="utility-field" />
+                    </div>
 
-                <div class="buttons">
-                    <input type="button" id="utilitySearch" value="Search" />
-                </div>
+                    <div class="buttons">
+                        <input type="submit" id="utilitySearch" value="Search" />
+                    </div>
 
-                <div id="utilityResults">
-                </div>
+                    <div id="utilityResults">
+                    </div>
+                </form>
             </li>
 
 
             <li>
-                <div class="field text-field">
-                    <label for="adapterInterface">
-                        Adapter interface
-                    </label>
-                    <input type="text" id="adapterInterface" name="interface"
-                           class="adapter-field" />
-                </div>
-
-                <div class="field text-field">
-                    <label for="adapterName">
-                        Adapter name
-                    </label>
-                    <input type="text" id="adapterName" name="name" class="adapter-field" />
-                </div>
-
-                <tal:descriminators
-                      tal:repeat="depth view/get_adpater_depth_range">
-
+                <form action="" id="adapterForm">
                     <div class="field text-field">
-                        <label tal:attributes="for string:adapterDesc${depth}"
-                               tal:content="string:For ${depth}">
-                            For X
+                        <label for="adapterInterface">
+                            Adapter interface
                         </label>
-                        <input type="text" class="adapter-field adapter-desc-field"
-                               tal:attributes="id string:adapterDesc${depth};
-                                               name string:descriminator:${depth}"
-                               />
+                        <input type="text" id="adapterInterface" name="interface"
+                               class="adapter-field" />
                     </div>
 
-                </tal:descriminators>
+                    <div class="field text-field">
+                        <label for="adapterName">
+                            Adapter name
+                        </label>
+                        <input type="text" id="adapterName" name="name" class="adapter-field" />
+                    </div>
 
-                <div class="buttons">
-                    <input type="button" id="adapterSearch" value="Search" />
-                </div>
+                    <tal:descriminators
+                          tal:repeat="depth view/get_adpater_depth_range">
 
-                <div id="adapterResults">
-                </div>
+                        <div class="field text-field">
+                            <label tal:attributes="for string:adapterDesc${depth}"
+                                   tal:content="string:For ${depth}">
+                                For X
+                            </label>
+                            <input type="text" class="adapter-field adapter-desc-field"
+                                   tal:attributes="id string:adapterDesc${depth};
+                                                   name string:descriminator:${depth}"
+                                   />
+                        </div>
+
+                    </tal:descriminators>
+
+                    <div class="buttons">
+                        <input type="submit" id="adapterSearch" value="Search" />
+                    </div>
+
+                    <div id="adapterResults">
+                    </div>
+                </form>
             </li>
 
 

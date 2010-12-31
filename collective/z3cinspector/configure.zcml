@@ -49,6 +49,10 @@
           name="collective.z3cinspector-jquery.tools.min.js" />
 
     <browser:resource
+          file="resources/jquery.hotkeys-0.7.9.min.js"
+          name="collective.z3cinspector-jquery.hotkeys.js" />
+
+    <browser:resource
           file="resources/inspector.js"
           name="collective.z3cinspector-inspector.js" />
 

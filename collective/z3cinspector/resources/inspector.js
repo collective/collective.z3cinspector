@@ -3,6 +3,15 @@ $(function() {
   /* TABS */
 
   $('ul.tabs').tabs('ul.panes > li');
+  $(document).bind('keydown', 'ctrl+u', function() {
+    $('#tabUtilities').click();
+  });
+  $(document).bind('keydown', 'ctrl+a', function() {
+    $('#tabAdapters').click();
+  });
+  $(document).bind('keydown', 'ctrl+c', function() {
+    $('#tabConfiguration').click();
+  });
 
   /* UTILITIES */
 
@@ -25,7 +34,8 @@ $(function() {
     ac_utility_name.flushCache();
   });
 
-  $('#utilitySearch').click(function() {
+  $('#utilityForm').submit(function(e) {
+    e.preventDefault();
     var data = {};
     $('.utility-field').each(function() {
       data[$(this).attr('name')] = $(this).val();
@@ -92,7 +102,8 @@ $(function() {
     $(ac_adapter_descs).each(function(){this.flushCache();});
   });
 
-  $('#adapterSearch').click(function() {
+  $('#adapterForm').submit(function(e) {
+    e.preventDefault();
     var data = {};
     $('.adapter-field').each(function() {
       data[$(this).attr('name')] = $(this).val();
