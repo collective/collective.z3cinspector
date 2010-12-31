@@ -26,7 +26,7 @@ class TableRenderer(object):
         headings = ['Provided', 'Name']
 
         if max_scope > 0:
-            headings.extend(['for %i' % (i+1) for i in range(max_scope)])
+            headings.extend(['For %i' % (i+1) for i in range(max_scope)])
 
         if config.get('column_factory'):
             headings.append('Factory')

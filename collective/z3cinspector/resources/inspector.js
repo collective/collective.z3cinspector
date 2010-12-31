@@ -31,7 +31,7 @@ $(function() {
       data[$(this).attr('name')] = $(this).val();
     });
     $('#utilityResults').html('');
-    showSpinner($(this).parents('fieldset:first'));
+    showSpinner($(this).parents('li:first'));
     $.ajax({
       url: '/@@inspector-search-utility/search_results',
       data: data,
@@ -76,7 +76,7 @@ $(function() {
       data[$(this).attr('name')] = $(this).val();
     });
     $('#adapterResults').html('');
-    showSpinner($(this).parents('fieldset:first'));
+    showSpinner($(this).parents('li:first'));
     $.ajax({
       url: '/@@inspector-search-adapter/search_results',
       data: data,
@@ -122,8 +122,8 @@ $(function() {
     });
   });
 
-  var showSpinner = function(fieldset) {
-    $('<img src="/++resource++collective.z3cinspector-spinner.gif" class="spinner" />').appendTo(fieldset);
+  var showSpinner = function(tab) {
+    $('<img src="/++resource++collective.z3cinspector-spinner.gif" class="spinner" />').appendTo(tab);
   };
 
   var hideSpinner = function() {
