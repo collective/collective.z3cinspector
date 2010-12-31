@@ -48,8 +48,6 @@ class Adapter(object):
         `path` is a list of already walked-trough keys.
         """
         adapters = []
-        descriminators = len(path) and path[:] or []
-        provided = len(descriminators) and descriminators.pop(0) or None
 
         for key, value in dict_.items():
             if isinstance(value, dict):
@@ -58,8 +56,10 @@ class Adapter(object):
 
             else:
                 # most inner level reached
-                if not provided:
+                if not path:
                     raise RuntimeError('Expected a provided interface.')
+                provided = path[-1]
+                descriminators = path[:-1]
                 adapters.append(cls(
                         provided=provided,
                         name=key,
@@ -84,21 +84,33 @@ class RegistryInspector(object):
         """Returns a list of interface names of provided interfaces.
         """
 
-        provided = []
+        def _inner_keys(dict_):
+            # we need to get the keys of the second most inner dicts.
+            keys = []
+            for key, value in dict_.items():
+                if isinstance(value, dict):
+                    sub = _inner_keys(value)
+                    if sub == -1:
+                        keys.append(get_dotted_name(key))
+                    else:
+                        keys.extend(sub)
+                else:
+                    return -1
+            return keys
 
+        names = []
         if scope > -1:
-            provided.extend(self.registry._adapters[scope].keys())
+            names = _inner_keys(self.registry._adapters[scope])
 
         else:
-            for ascope, adapters in enumerate(self.registry._adapters):
-                provided.extend(adapters.keys())
+            names = []
+            for all in self.registry._adapters:
+                names.extend(_inner_keys(all))
 
-        # uniquify
-        provided = list(set(provided))
+        names = list(set(names))
+        names.sort()
+        return names
 
-        # convert to dotted names
-        for iface in provided:
-            yield get_dotted_name(iface)
 
     def get_names(self, provided=None, scope=-1):
         """Return all known names. The `provided` interface is optional.
@@ -162,7 +174,7 @@ class RegistryInspector(object):
             return results
 
         if descriminators:
-            path = [provided] + descriminators + [name]
+            path = descriminators + [provided, name]
             results = _match_path(
                 path, self.registry._adapters[len(descriminators)])
             return Adapter.from_registry(results)
@@ -170,7 +182,7 @@ class RegistryInspector(object):
         else:
             results = {}
             for scope, all in enumerate(self.registry._adapters):
-                path = [provided] + [None for i in range(scope)] + [name]
+                path = [None for i in range(scope)] + [provided, name]
                 subdict = _match_path(path, all)
                 if subdict:
                     results.update(subdict)
