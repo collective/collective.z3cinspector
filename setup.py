@@ -30,6 +30,11 @@ setup(name='collective.z3cinspector',
         'setuptools',
         # -*- Extra requirements: -*-
         ],
+      extras_require={
+        'python2.4': [
+            'simplejson',
+            ],
+        },
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
