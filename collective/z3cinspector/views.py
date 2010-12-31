@@ -137,4 +137,4 @@ class SearchAdapter(BrowserView):
         adapters = inspector.get_adapters(provided, (), name)
 
         renderer = TableRenderer(self.context, self.request)
-        return renderer(adapters, show_descriminators=False)
+        return renderer(adapters, show_descriminators=True)
