@@ -166,7 +166,7 @@ class RegistryInspector(object):
                 elif provided in all:
                     names.extend(_inner_keys(all[provided]))
 
-            return names
+            return set(names)
 
     def get_keys_at_level(self, level, provided=None, name=None):
         """Returns all keys at a specific level

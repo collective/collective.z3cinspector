@@ -5,6 +5,9 @@ Changelog
 1.1
 ---
 
+- Remove duplicate names.
+  [jone]
+
 - Fix utility interface lookup bug.
   [jone]
 
