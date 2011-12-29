@@ -1,6 +1,7 @@
 from collective.z3cinspector.utils import get_dotted_name
 import inspect
 import sys
+import types
 
 
 class Adapter(object):
@@ -105,17 +106,19 @@ class RegistryInspector(object):
         """
 
         def _inner_keys(dict_):
-            # we need to get the keys of the second most inner dicts.
+            # The keys of the most inner dicts are the names of the
+            # adapters (or utilities) - we need to have the dotted
+            # names of the dicts one level above.
             keys = []
             for key, value in dict_.items():
-                if isinstance(value, dict):
-                    sub = _inner_keys(value)
-                    if sub == -1:
-                        keys.append(get_dotted_name(key))
-                    else:
-                        keys.extend(sub)
-                else:
+                if isinstance(key, types.StringTypes):
                     return -1
+                sub = _inner_keys(value)
+                if sub == -1:
+                    keys.append(get_dotted_name(key))
+
+                else:
+                    keys.extend(sub)
             return keys
 
         names = []
