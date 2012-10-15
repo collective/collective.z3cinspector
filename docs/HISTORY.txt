@@ -2,8 +2,11 @@ Changelog
 =========
 
 
-1.1
----
+1.1 (unreleased)
+----------------
+
+- Add a JSON api.
+  [jone]
 
 - Remove duplicate names.
   [jone]
@@ -13,7 +16,7 @@ Changelog
 
 
 
-1.0
----
+1.0 (2010-12-31)
+----------------
 
 - Initial release

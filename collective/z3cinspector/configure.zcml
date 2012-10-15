@@ -40,6 +40,14 @@
           permission="zope2.ViewManagementScreens"
           />
 
+    <browser:page
+          name="inspector-ajax"
+          for="OFS.interfaces.IApplication"
+          class=".views.AjaxAPI"
+          permission="zope2.ViewManagementScreens"
+          allowed_interface="collective.z3cinspector.interfaces.IAjaxAPI"
+          />
+
     <browser:resource
           file="resources/jquery.min.js"
           name="collective.z3cinspector-jquery.min.js" />

@@ -1,11 +1,14 @@
 from Products.Five import BrowserView
 from collective.z3cinspector import utils
 from collective.z3cinspector.config import Config
+from collective.z3cinspector.interfaces import IAjaxAPI
 from collective.z3cinspector.registry import RegistryInspector
 from collective.z3cinspector.table import TableRenderer
 from collective.z3cinspector.utils import resolve
 from datetime import datetime
 from zope.component import getSiteManager
+from zope.interface import implements
+import json
 import os
 
 
@@ -171,3 +174,88 @@ class SearchAdapter(BrowserView):
 
         renderer = TableRenderer(self.context, self.request)
         return renderer(adapters, show_descriminators=True)
+
+
+class AjaxAPI(BrowserView):
+    implements(IAjaxAPI)
+
+    def adapter_names(self):
+        """Returns a list of adapter names.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+        return json.dumps(list(sorted(inspector.get_names())))
+
+    def adapter_provided_names(self):
+        """Returns a list of adapter provided interface names as string.
+        """
+        inspector = RegistryInspector(getSiteManager().adapters)
+        return json.dumps(list(sorted(inspector.get_provided_names())))
+
+    def utility_names(self):
+        """Returns a list of utility names.
+        """
+        inspector = RegistryInspector(getSiteManager().utilities)
+        return json.dumps(list(sorted(inspector.get_names())))
+
+    def utility_provided_names(self):
+        """Returns a list of utility provided interface names as string.
+        """
+        inspector = RegistryInspector(getSiteManager().utilities)
+        return json.dumps(list(sorted(inspector.get_provided_names())))
+
+    def list_components(self):
+        """Returns a list of components matching the criterias passed as
+        GET or POST to the request.
+
+        Criterias:
+        - adapter_name
+        - adapter_provided_name
+        - utility_name
+        - utility_provided_name
+
+        The format can be changed by passing ``format`` in the request.
+        Possible formats: ``as_dict`` (json), ``as_text``.
+        """
+
+        registry_name = None
+        criteria_args = {}
+
+        for name in ('adapter_name',
+                     'adapter_provided_name',
+                     'utility_name',
+                     'utility_provided_name'):
+            value = self.request.get(name, None)
+            if value is not None:
+                registry_name, criteria_name = name.split('_', 1)
+                criteria_args[criteria_name] = value
+                break
+
+        if registry_name is None:
+            return '[]'
+
+        if registry_name == 'adapter':
+            registry = getSiteManager().adapters
+        elif registry_name == 'utility':
+            registry = getSiteManager().utilities
+
+        if self.request.get('format', None) in ('as_dict', 'as_text'):
+            criteria_args['format'] = self.request.get('format')
+
+        return self._list_components(registry, **criteria_args)
+
+    def _list_components(self, registry, name=None, provided_name=None,
+                         format='as_dict'):
+        inspector = RegistryInspector(registry)
+        components = inspector.get_adapters(
+            name=name,
+            provided=resolve(provided_name))
+
+        data = []
+        for comp in components:
+            data.append(getattr(comp, format)())
+
+        if format == 'as_dict':
+            return json.dumps(data)
+
+        elif format == 'as_text':
+            return '\n\n'.join(data)

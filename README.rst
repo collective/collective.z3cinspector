@@ -74,13 +74,47 @@ Example command::
     /path/to/your/editor %(path)s -l %(line)s
 
 
-Credits
+JSON-API
+========
+
+There is a JSON api for easy integration in editors.
+The view ``@@inspector-ajax`` has following (traversable) methods:
+
+``adapter_names``
+    Returns a list of adapter names.
+
+``adapter_provided_names``
+    Returns a list of adapter provided interface names as string.
+
+``utility_names``
+    Returns a list of utility names.
+
+``utility_provided_names``
+    Returns a list of utility provided interface names as string.
+
+``list_components``
+    Returns a list of components matching the criterias passed as
+    GET or POST to the request.
+
+    Criterias:
+
+    - adapter_name
+    - adapter_provided_name
+    - utility_name
+    - utility_provided_name
+
+    The format can be changed by passing ``format`` in the request.
+    Possible formats: ``as_dict`` (json), ``as_text``.
+
+
+License
 =======
 
-Sponsered by `4teamwork`_.
+"THE BEER-WARE LICENSE" (Revision 42):
 
- * `Jonas Baumann`_, author
+jone_ wrote this script. As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return.
 
 
-.. _`4teamwork`: http://www.4teamwork.ch/
-.. _`Jonas Baumann`: http://github.com/jone
+.. _`jone`: http://github.com/jone

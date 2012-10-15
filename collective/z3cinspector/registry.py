@@ -89,6 +89,32 @@ class Adapter(object):
 
         return adapters
 
+    def as_dict(self):
+        path, line = self.get_file_and_line()
+        return {'name': self.name,
+                'provided': get_dotted_name(self.provided),
+                'descriminators': [get_dotted_name(iface)
+                                   for iface in self.descriminators],
+                'factory': str(self.factory),
+                'path': path,
+                'line': line,
+                }
+
+    def as_text(self):
+        path, line = self.get_file_and_line()
+
+        data = [':'.join((path, str(line))),
+                'Name:      %s' % self.name,
+                'Provides:  %s' % get_dotted_name(self.provided),
+                ]
+
+        for num, iface in enumerate(self.descriminators):
+            data.append('Adapts %i:  %s' % (num, get_dotted_name(iface)))
+
+        data.append('Factory:   %s' % str(self.factory))
+
+        return '\n'.join(data)
+
 
 class RegistryInspector(object):
     """Access the component registry.
