@@ -1,15 +1,17 @@
-from Products.Five import BrowserView
+import json
+import os
+from datetime import datetime
+
 from collective.z3cinspector import utils
 from collective.z3cinspector.config import Config
 from collective.z3cinspector.interfaces import IAjaxAPI
 from collective.z3cinspector.registry import RegistryInspector
 from collective.z3cinspector.table import TableRenderer
 from collective.z3cinspector.utils import resolve
-from datetime import datetime
+from Products.Five import BrowserView
+from six.moves import range
 from zope.component import getSiteManager
-from zope.interface import implements
-import json
-import os
+from zope.interface import implementer
 
 
 class InspectView(BrowserView):
@@ -30,7 +32,7 @@ class InspectView(BrowserView):
     def get_adpater_depth_range(self):
         """Maximum amount of adapter descriminators.
         """
-        return range(1, len(getSiteManager().adapters._adapters) + 1)
+        return list(range(1, len(getSiteManager().adapters._adapters) + 1))
 
 
 
@@ -155,8 +157,7 @@ class SearchAdapter(BrowserView):
         name = self.request.get('name')
 
         descriminators = []
-        desc_keys = filter(lambda x: x.startswith('descriminator:'),
-                           self.request.form.keys())
+        desc_keys = [x for x in list(self.request.form.keys()) if x.startswith('descriminator:')]
         desc_keys.sort()
         any_positive = False
         for key in desc_keys:
@@ -176,8 +177,8 @@ class SearchAdapter(BrowserView):
         return renderer(adapters, show_descriminators=True)
 
 
+@implementer(IAjaxAPI)
 class AjaxAPI(BrowserView):
-    implements(IAjaxAPI)
 
     def adapter_names(self):
         """Returns a list of adapter names.

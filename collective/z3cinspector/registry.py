@@ -1,7 +1,9 @@
-from collective.z3cinspector.utils import get_dotted_name
 import inspect
 import sys
 import types
+
+from collective.z3cinspector.utils import get_dotted_name
+from six.moves import range
 
 
 class Adapter(object):
@@ -137,7 +139,7 @@ class RegistryInspector(object):
             # names of the dicts one level above.
             keys = []
             for key, value in dict_.items():
-                if isinstance(key, types.StringTypes):
+                if isinstance(key, (str,)):
                     return -1
                 sub = _inner_keys(value)
                 if sub == -1:

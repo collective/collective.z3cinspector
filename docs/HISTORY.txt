@@ -5,7 +5,7 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Python 3.9 compatibility [mathias.leimgruber]
 
 
 1.1 (2012-10-15)
