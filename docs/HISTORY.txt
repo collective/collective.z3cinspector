@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.2 (unreleased)
-----------------
+1.2.0 (2022-05-09)
+------------------
 
 - Python 3.9 compatibility [mathias.leimgruber]
 
