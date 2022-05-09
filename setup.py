@@ -2,7 +2,7 @@ import os
 
 from setuptools import find_packages, setup
 
-version = '1.2.1.dev0'
+version = '1.2.1'
 
 setup(name='collective.z3cinspector',
       version=version,
