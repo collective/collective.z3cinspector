@@ -1,12 +1,12 @@
-from zope.dottedname.resolve import resolve as zope_resolve
-from zope.interface.declarations import Implements
-from zope.interface.declarations import implementedBy
 import re
 import types
 
+from zope.dottedname.resolve import resolve as zope_resolve
+from zope.interface.declarations import Implements, implementedBy
+
 
 def get_dotted_name(iface):
-    if isinstance(iface, types.StringType):
+    if isinstance(iface, bytes):
         return 'string: %s' % iface
     elif isinstance(iface, Implements):
         return 'implementedBy: %s' % iface.__name__
@@ -17,8 +17,7 @@ def get_dotted_name(iface):
 def ac_search(query, results):
     """Autocomplete search function.
     """
-    results = filter(lambda value: compare(query, value),
-                     results)
+    results = [value for value in results if compare(query, value)]
 
     if query in results:
         # we have a direct match - move it to the top

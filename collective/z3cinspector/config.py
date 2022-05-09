@@ -1,6 +1,5 @@
 import os.path
 
-
 try:
     import json
 except ImportError:

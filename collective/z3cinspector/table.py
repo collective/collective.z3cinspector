@@ -1,6 +1,7 @@
 from collective.z3cinspector import utils
 from collective.z3cinspector.config import Config
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from six.moves import range
 
 
 class TableRenderer(object):
